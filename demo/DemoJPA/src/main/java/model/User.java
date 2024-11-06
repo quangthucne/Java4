@@ -1,82 +1,52 @@
 package model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.Nationalized;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-@Table(name = "Users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "users")
 public class User {
     @Id
-    @Size(max = 20)
-    @Nationalized
-    @Column(name = "id", nullable = false, length = 20)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
+    private Integer id;
 
-    @Size(max = 50)
+    @Size(max = 100)
     @NotNull
-    @Nationalized
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Size(max = 50)
     @NotNull
-    @Nationalized
-    @Column(name = "fullname", nullable = false, length = 50)
-    private String fullname;
+    @Lob
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Size(max = 50)
     @NotNull
-    @Nationalized
-    @Column(name = "email", nullable = false, length = 50)
+    @Lob
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NotNull
-    @Column(name = "admin", nullable = false)
-    private Boolean admin = false;
+    @Lob
+    @Column(name = "address", nullable = false)
+    private String address;
 
-    public String getId() {
-        return id;
-    }
+    @NotNull
+    @ColumnDefault("1")
+    @Column(name = "role", nullable = false)
+    private Integer role;
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
 
 }

@@ -1,51 +1,50 @@
 package model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.Nationalized;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
-
-@Getter
-@Setter
-@Entity
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Table(name = "Users", schema = "dbo")
+@NoArgsConstructor
+@Entity
+@Table(name = "users", schema = "dbo")
 public class User {
     @Id
-    @Size(max = 20)
-    @Nationalized
-    @Column(name = "id", nullable = false, length = 20)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
+    private Integer id;
 
-    @Size(max = 50)
+    @Size(max = 100)
     @NotNull
-    @Nationalized
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Size(max = 50)
     @NotNull
-    @Nationalized
-    @Column(name = "fullname", nullable = false, length = 50)
-    private String fullname;
+    @Lob
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Size(max = 50)
     @NotNull
-    @Nationalized
-    @Column(name = "email", nullable = false, length = 50)
+    @Lob
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NotNull
-    @Column(name = "admin", nullable = false)
-    private Boolean admin = false;
+    @Lob
+    @Column(name = "address", nullable = false)
+    private String address;
+
+    @NotNull
+    @ColumnDefault("1")
+    @Column(name = "role", nullable = false)
+    private Integer role;
 
 }
