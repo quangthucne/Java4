@@ -1,6 +1,5 @@
 package com.quangthuc.demojpa;
 
-import com.quangthuc.demojpa.bean.UserBean;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

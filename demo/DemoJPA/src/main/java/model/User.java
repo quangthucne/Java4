@@ -3,13 +3,16 @@ package model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Getter
+@Setter
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -47,6 +50,10 @@ public class User {
     @Column(name = "role", nullable = false)
     private Integer role;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Address> addresses = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders = new LinkedHashSet<>();
 
 }
