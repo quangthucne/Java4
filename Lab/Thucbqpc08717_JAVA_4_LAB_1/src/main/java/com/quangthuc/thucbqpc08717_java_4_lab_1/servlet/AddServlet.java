@@ -43,7 +43,6 @@ public class AddServlet extends HttpServlet {
         user.setName(userBean.getName());
         user.setPassword(userBean.getPassword());
         user.setEmail(userBean.getEmail());
-        user.setAddress(userBean.getAddress());
         user.setUsername(userBean.getUsername());
         user.setRole(1);
         return user;

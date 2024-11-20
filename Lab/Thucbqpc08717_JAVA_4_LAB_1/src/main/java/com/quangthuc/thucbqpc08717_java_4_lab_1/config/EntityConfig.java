@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-
 public class EntityConfig {
     private static EntityManager entityManager;
 

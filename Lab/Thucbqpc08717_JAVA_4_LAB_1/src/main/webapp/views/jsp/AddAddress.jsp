@@ -1,15 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: buiquangthuc
-  Date: 6/11/24
-  Time: 16:51
+  Date: 14/11/24
+  Time: 21:00
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Add User</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -42,34 +43,28 @@
 
             </c:if>
             <div class="header">
-                <h2 class="text-center">Thêm người dùng</h2>
+                <h2 class="text-center">Add Address</h2>
             </div>
             <div class="card-body">
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/edit" onsubmit="return validateForm()">
+                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/add-address" onsubmit="return validateForm()">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" name="name" placeholder id="name"
-                               aria-describedby="helpId" placeholder="" value="${user.name}" />
+                        <input type="text" class="form-control" name="customerName" id="name"
+                               aria-describedby="helpId" placeholder="" />
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" id="username"
-                               aria-describedby="helpId" placeholder="" value="${user.username}"/>
+                        <label for="phoneNumber" class="form-label">Phone</label>
+                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
+                               aria-describedby="helpId" placeholder="" />
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password"
-                               aria-describedby="helpId" placeholder="" value="${user.password}"/>
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" name="address" id="address"
+                               aria-describedby="helpId" placeholder="" />
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
-                               placeholder="" value="${user.email}"/>
-                    </div>
-                    <input type="text" name="id" hidden="hidden" value="${user.id}"/>
-                    <input type="text" name="role" hidden="hidden" value="${user.role}"/>
+                    <input type="text" hidden="hidden" name="userId" id="id" value="${userId}" />
                     <button type="submit" class="btn btn-primary">
-                        Edit
+                        Add
                     </button>
                     <a href="${pageContext.request.contextPath}" class="btn btn-outline-primary">Quay lại</a>
                 </form>
@@ -94,9 +89,10 @@
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
         const email = document.getElementById('email').value.trim();
+        const address = document.getElementById('address').value.trim();
 
         // Check if all fields are filled out
-        if (!name && !username && !password && !email) {
+        if (!name && !username && !password && !email && !address) {
             alert("Vui lòng nhập đầy đủ các trường dữ liệu.");
             return false;
         }
@@ -114,6 +110,10 @@
         }
         if (!email){
             alert("Vui lòng nhập email!");
+            return false;
+        }
+        if (!address){
+            alert("Vui lòng nhập địa chỉ")
             return false;
         }
 
@@ -140,6 +140,8 @@
     }
 </script>
 
+
 </body>
 
 </html>
+

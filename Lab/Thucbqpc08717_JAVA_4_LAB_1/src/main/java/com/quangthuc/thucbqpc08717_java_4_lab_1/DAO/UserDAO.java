@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import model.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserDAO {
@@ -13,12 +14,22 @@ public class UserDAO {
     public static List<User> findALl() {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         List<User> users = query.getResultList();
+        users.sort(Comparator.comparing(user -> user.getUsername()));
         return users;
     }
 
     public static User findById(int id) {
         User user = em.find(User.class, id);
+        System.out.println(user.getName());
         return user;
+    }
+
+    public static List<User> findByUsername(String searchInput) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username OR u.name LIKE :name", User.class);
+        query.setParameter("username",  searchInput);
+        query.setParameter("name", "%" + searchInput + "%");
+        List<User> users = query.getResultList();
+        return users;
     }
 
     public static boolean checkUnique(String username) {
@@ -75,7 +86,6 @@ public class UserDAO {
             user.setPassword(userUpdate.getPassword());
             user.setRole(userUpdate.getRole());
             user.setEmail(userUpdate.getEmail());
-            user.setAddress(userUpdate.getAddress());
             try {
                 em.getTransaction().begin();
                 em.merge(user);
@@ -105,7 +115,6 @@ public class UserDAO {
                 user.setPassword(userUpdate.getPassword());
                 user.setRole(userUpdate.getRole());
                 user.setEmail(userUpdate.getEmail());
-                user.setAddress(userUpdate.getAddress());
                 try {
                     em.getTransaction().begin();
                     em.merge(user);

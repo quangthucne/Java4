@@ -2,7 +2,6 @@ package com.quangthuc.thucbqpc08717_java_4_lab_1.servlet;
 
 import com.quangthuc.thucbqpc08717_java_4_lab_1.bean.UserBean;
 import com.quangthuc.thucbqpc08717_java_4_lab_1.DAO.UserDAO;
-import com.quangthuc.thucbqpc08717_java_4_lab_1.config.EntityConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +18,6 @@ import java.util.Map;
 public class EditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        EntityConfig.getEntityManager();
         getUserById(req, resp);
         req.getRequestDispatcher("/views/jsp/EditUser.jsp").forward(req, resp);
     }
@@ -49,7 +47,6 @@ public class EditServlet extends HttpServlet {
             user.setName(userBean.getName());
             user.setPassword(userBean.getPassword());
             user.setEmail(userBean.getEmail());
-            user.setAddress(userBean.getAddress());
             user.setUsername(userBean.getUsername());
             user.setId(userBean.getId());
             user.setRole(1);

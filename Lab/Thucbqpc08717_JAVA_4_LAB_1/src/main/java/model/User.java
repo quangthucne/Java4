@@ -6,9 +6,11 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.List;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users", schema = "dbo")
 public class User {
@@ -38,13 +40,10 @@ public class User {
     private String email;
 
     @NotNull
-    @Lob
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @NotNull
     @ColumnDefault("1")
     @Column(name = "role", nullable = false)
     private Integer role;
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Address> addresses;
 }

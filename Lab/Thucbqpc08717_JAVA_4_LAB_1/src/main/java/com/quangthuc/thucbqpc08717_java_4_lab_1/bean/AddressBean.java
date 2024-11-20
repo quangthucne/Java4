@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBean {
-    private int id;
-    private String username;
-    private String password;
-    private String name;
-    private String email;
-
+public class AddressBean {
+    private int addressId;
+    private String address;
+    private String customerName;
+    private String phoneNumber;
+    private int userId;
 }

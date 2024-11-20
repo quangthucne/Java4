@@ -66,11 +66,6 @@
             <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
                    placeholder="" />
           </div>
-          <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" name="address" id="address"
-                   aria-describedby="helpId" placeholder="" />
-          </div>
           <button type="submit" class="btn btn-primary">
             Add
           </button>

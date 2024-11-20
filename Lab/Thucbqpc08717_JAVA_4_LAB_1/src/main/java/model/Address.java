@@ -5,14 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "address")
+@Table(name = "address", schema = "dbo")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +31,8 @@ public class Address {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private model.User user;
-
-    @OneToMany(mappedBy = "address")
-    private Set<model.Order> orders = new LinkedHashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
