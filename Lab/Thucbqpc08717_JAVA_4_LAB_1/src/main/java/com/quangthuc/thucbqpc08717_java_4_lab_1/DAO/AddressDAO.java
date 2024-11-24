@@ -69,7 +69,7 @@ public class AddressDAO {
         return address;
     }
 
-    public static Address update(Address address) {
+    public static ArrayList update(Address address) {
         String message = "";
         int status = 0;
         ArrayList list = new ArrayList<>();
@@ -92,7 +92,7 @@ public class AddressDAO {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
-        return address;
+        return list;
     }
 
     public static void delete(int id) {

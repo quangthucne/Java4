@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+
+
 public class UserDAO {
     private static EntityManager em = EntityConfig.getEntityManager();
 
@@ -162,6 +164,19 @@ public class UserDAO {
         query.setFirstResult(pageNumber * pageSize);
         query.setMaxResults(pageSize);
         List<User> users = query.getResultList();
+    }
+
+    public static User findByUsernameLogin(String username) {
+        TypedQuery query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        User user = null;
+        try {
+            user = (User) query.getSingleResult();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
 }

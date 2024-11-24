@@ -28,7 +28,9 @@ CREATE TABLE categories (
 CREATE table images (
     images_id int PRIMARY KEY NOT NULL,
     images_name text NOT NULL,
-    product_id INT FOREIGN KEY NOT NULL;
+    product_id INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+
 )
 
 CREATE TABLE products (
@@ -37,7 +39,8 @@ CREATE TABLE products (
     product_price INT NOT NULL,
     product_quantity INT NOT NULL,
     categories_id int NOT NULL,
-    REFERENCES categories_id FOREIGN KEY categories(categories_id)
+    FOREIGN KEY (categories_id) REFERENCES categories(categories_id)
+
 )
 
 INSERT INTO users (username, [password], name, email, address)

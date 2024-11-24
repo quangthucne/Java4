@@ -4,6 +4,7 @@ import com.quangthuc.thucbqpc08717_java_4_lab_1.DAO.AddressDAO;
 import com.quangthuc.thucbqpc08717_java_4_lab_1.bean.AddressBean;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,20 +20,23 @@ public class EditAddress extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("address", getAddress(req, resp));
+        System.out.println("id user address: " + getUserId(req));
+        req.setAttribute("userId", getUserId(req));
         req.getRequestDispatcher("/views/jsp/EditAddress.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Address address = null;
         try {
-           address = editAddress(req, resp);
+            editAddress(req, resp);
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        resp.sendRedirect(req.getContextPath() + "/");
+
+
+        req.getRequestDispatcher("/views/jsp/EditAddress.jsp").forward(req, resp);
 
 
 
@@ -54,9 +58,24 @@ public class EditAddress extends HttpServlet {
         address.setId(addressBean.getAddressId());
         return address;
     }
-    public static Address editAddress(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
+    public static void editAddress(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         Address address = getAddressEdit(req, resp);
-        AddressDAO.update(address);
-        return address;
+        req.setAttribute("message", AddressDAO.update(address));
+        req.setAttribute("userId", getUserId(req));
+    }
+    public static int getUserId(HttpServletRequest req) {
+        String role = null;
+        String userId = null;
+        Cookie[] cookies = req.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("UserId")) {
+                    userId = cookie.getValue();
+                    System.out.println("UserId: " + userId);
+                }
+            }
+        }
+        return Integer.parseInt(userId);
     }
 }

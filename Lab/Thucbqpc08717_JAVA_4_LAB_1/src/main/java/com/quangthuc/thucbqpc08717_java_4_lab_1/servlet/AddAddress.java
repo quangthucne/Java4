@@ -5,6 +5,7 @@ import com.quangthuc.thucbqpc08717_java_4_lab_1.DAO.UserDAO;
 import com.quangthuc.thucbqpc08717_java_4_lab_1.bean.AddressBean;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,6 +35,7 @@ public class AddAddress extends HttpServlet {
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         }
+        req.setAttribute("userId", getUserId(req));
         req.getRequestDispatcher("/views/jsp/AddAddress.jsp").forward(req, resp);
     }
 
@@ -45,13 +47,29 @@ public class AddAddress extends HttpServlet {
         address.setAddress(addressBean.getAddress());
         address.setCustomerName(addressBean.getCustomerName());
         address.setPhoneNumber(addressBean.getPhoneNumber());
-        System.out.println("userId: " + addressBean.getUserId());
-        User user = UserDAO.findById(addressBean.getUserId());
+        System.out.println("userId: " + getUserId(req));
+        User user = UserDAO.findById(getUserId(req));
         address.setUser(user);
         return address;
     }
     public static void addAddress(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         Address address = getAddress(req, resp);
         req.setAttribute("message", AddressDAO.create(address));
+    }
+
+    public static int getUserId(HttpServletRequest req) {
+        String role = null;
+        String userId = null;
+        Cookie[] cookies = req.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                 if (cookie.getName().equals("UserId")) {
+                    userId = cookie.getValue();
+                    System.out.println("UserId: " + userId);
+                }
+            }
+        }
+        return Integer.parseInt(userId);
     }
 }

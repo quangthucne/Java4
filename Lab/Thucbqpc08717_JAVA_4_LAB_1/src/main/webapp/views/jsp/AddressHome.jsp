@@ -32,7 +32,7 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="mb-3">
-                    <a href="${pageContext.request.contextPath}/add" class="btn btn-primary">Add Address</a>
+                    <a href="${pageContext.request.contextPath}/add-address" class="btn btn-primary">Add Address</a>
                 </div>
                 <div class="mb-3">
                     <form class="d-flex my-2 my-lg-0" action="${pageContext.request.contextPath}/address" method="post">
@@ -80,11 +80,11 @@
                         <tfoot>
                         </tfoot>
                     </table>
+                    <form action="${pageContext.request.contextPath}/logout" method="POST">
+                        <button class="btn btn-outline-danger">Đăng xuất</button>
+                    </form>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </main>

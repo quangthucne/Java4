@@ -66,7 +66,7 @@
                     <button type="submit" class="btn btn-primary">
                         Add
                     </button>
-                    <a href="${pageContext.request.contextPath}" class="btn btn-outline-primary">Quay lại</a>
+                    <a href="${pageContext.request.contextPath}/address?id=${userId}" class="btn btn-outline-primary">Quay lại</a>
                 </form>
             </div>
         </div>
